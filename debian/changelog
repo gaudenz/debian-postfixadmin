@@ -1,3 +1,13 @@
+postfixadmin (2.3.5-2+deb7u1) wheezy-security; urgency=high
+
+  * Non-maintainer upload
+  * SECURITY: fix SQL injection in show_gen_status()
+    This is only exploitable by authenticated users able
+    to create new aliases.
+    Upstream commit: http://sourceforge.net/p/postfixadmin/code/1650 
+
+ -- Gaudenz Steinlin <gaudenz@debian.org>  Thu, 20 Mar 2014 10:41:47 +0100
+
 postfixadmin (2.3.5-2) unstable; urgency=low
 
   * Added .po translation files (Closes: #667951, #667962, #668202, #668288, 
