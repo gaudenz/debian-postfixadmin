@@ -2175,6 +2175,8 @@ function gen_show_status ($show_alias)
     global $CONF, $table_alias;
     $stat_string = "";
 
+    $show_alias = escape_string($show_alias);
+
     $stat_goto = "";
     $stat_result = db_query ("SELECT goto FROM $table_alias WHERE address='$show_alias'");
     if ($stat_result['rows'] > 0)
