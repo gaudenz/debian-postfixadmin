@@ -1,4 +1,4 @@
-postfixadmin (2.3.5-3) stable-security; urgency=high
+postfixadmin (2.3.5-3) unstable; urgency=high
 
   [ Norman Messtorff ]
   * [a620b76] fix possible SQL injection of $show_alias in function gen_show_status()
