@@ -1,7 +1,8 @@
 postfixadmin (2.3.5-3) unstable; urgency=high
 
   [ Norman Messtorff ]
-  * [a620b76] fix possible SQL injection of $show_alias in function gen_show_status()
+  * [a620b76] fix possible SQL injection of $show_alias in function
+    gen_show status()
 
  -- Norman Messtorff <normes@normes.org>  Sun, 23 Mar 2014 19:07:23 +0100
 
