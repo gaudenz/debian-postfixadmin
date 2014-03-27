@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Norman Messtorff <normes@normes.org>
 Build-Depends: debhelper (>= 7), po-debconf
-Standards-Version: 3.9.3
+Standards-Version: 3.9.5
 Vcs-Svn: https://postfixadmin.svn.sourceforge.net/svnroot/postfixadmin/trunk
 Vcs-Browser: http://postfixadmin.svn.sourceforge.net/viewvc/postfixadmin/trunk/
 Homepage: http://postfixadmin.sourceforge.net
