@@ -15,11 +15,6 @@ build-stamp:
 	dh_testdir
 	touch build-stamp
 
-# Create a needed tar.gz file to build a non-nativ .dpkg
-prep:
-	rm -f ../postfixadmin_*orig.tar.gz
-	cd ..; tar --exclude-vcs --exclude=$(notdir ${CURDIR})/debian  --exclude=$(notdir ${CURDIR})/.pc -cvzf postfixadmin_${DEBVERSION}.orig.tar.gz $(notdir ${CURDIR})
-
 clean:
 	dh_testdir
 	dh_testroot
