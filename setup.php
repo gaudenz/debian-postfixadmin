@@ -9,7 +9,7 @@
  * Further details on the project are available at : 
  *     http://www.postfixadmin.com or http://postfixadmin.sf.net 
  * 
- * @version $Id: setup.php 969 2011-02-19 20:10:22Z christian_boltz $ 
+ * @version $Id: setup.php 1498 2013-07-10 11:59:30Z christian_boltz $ 
  * @license GNU GPL v2 or later. 
  * 
  * File: setup.php
@@ -123,7 +123,6 @@ if ($file_config == 1)
     require_once($incpath.'/config.inc.php');
     $config_loaded = 1;
 
-    require($incpath.'/config.inc.php');
     if(isset($CONF['configured'])) {
         if($CONF['configured'] === TRUE) {
             print "<li>Checking \$CONF['configured'] - OK\n";
@@ -336,7 +335,7 @@ else
             $table_domain = table_by_key('domain');
             $r = db_query("SELECT * FROM $table_domain WHERE domain = 'ALL'");
             if($r['rows'] == 0) {
-                db_insert('domain', array('domain' => 'ALL')); // all other fields should default through the schema.
+                db_insert('domain', array('domain' => 'ALL', 'description' => '', 'transport' => '') ); // all other fields should default through the schema.
             }
 
             list ($error, $tMessage, $pAdminCreate_admin_username_text, $pAdminCreate_admin_password_text) = create_admin($fUsername, $fPassword, $fPassword2, array('ALL'), TRUE);
