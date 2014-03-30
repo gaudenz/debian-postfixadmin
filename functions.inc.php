@@ -9,14 +9,14 @@
  * Further details on the project are available at : 
  *     http://www.postfixadmin.com or http://postfixadmin.sf.net 
  * 
- * @version $Id: functions.inc.php 1335 2012-01-15 12:10:59Z christian_boltz $ 
+ * @version $Id: functions.inc.php 1650 2014-02-19 12:27:02Z christian_boltz $ 
  * @license GNU GPL v2 or later. 
  * 
  * File: functions.inc.php
  * Contains re-usable code.
  */
 
-$version = '2.3.5';
+$version = '2.3.7';
 
 /**
  * check_session
@@ -229,7 +229,7 @@ function check_domain ($domain)
     global $CONF;
     global $PALANG;
 
-    if (!preg_match ('/^([-0-9A-Z]+\.)+' . '([0-9A-Z]){2,6}$/i', ($domain)))
+    if (!preg_match ('/^([-0-9A-Z]+\.)+' . '([0-9A-Z]){2,13}$/i', ($domain)))
     {
         flash_error(sprintf($PALANG['pInvalidDomainRegex'], htmlentities($domain)));
         return false;
@@ -284,7 +284,7 @@ function check_email ($email)
     }
 
     // Perform non-domain-part sanity checks
-    if (!preg_match ('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_{|}~]+' . '@' . '[^@]+$/i', trim ($ce_email)))
+    if (!preg_match ('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_{|}~]+' . '@' . '[^@]+$/i', $ce_email))
     {
         flash_error($PALANG['pInvalidMailRegex']);
         return false;
@@ -2174,6 +2174,8 @@ function gen_show_status ($show_alias)
 {
     global $CONF, $table_alias;
     $stat_string = "";
+
+    $show_alias = escape_string($show_alias);
 
     $stat_goto = "";
     $stat_result = db_query ("SELECT goto FROM $table_alias WHERE address='$show_alias'");

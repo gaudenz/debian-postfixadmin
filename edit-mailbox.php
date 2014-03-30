@@ -9,7 +9,7 @@
  * Further details on the project are available at : 
  *     http://www.postfixadmin.com or http://postfixadmin.sf.net 
  * 
- * @version $Id: edit-mailbox.php 496 2008-12-12 19:40:39Z GingerDog $ 
+ * @version $Id: edit-mailbox.php 1479 2013-06-16 16:39:36Z christian_boltz $ 
  * @license GNU GPL v2 or later. 
  * 
  * File: edit-mailbox.php 
@@ -161,6 +161,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
       }
       else {
          db_log ($SESSID_USERNAME, $fDomain, 'edit_mailbox', $fUsername);
+
+         $result = db_query ("UPDATE $table_alias SET active=$sqlActive WHERE address='$fUsername' AND domain='$fDomain'");
+         if ($result['rows'] != 1)
+         {
+            $error = 1;
+            $tMessage = $PALANG['pEdit_mailbox_result_error'];
+         }
+         else
+         {
+            db_log ($SESSID_USERNAME, $fDomain, 'edit_alias_state', $fUsername);
+         }
 
          header ("Location: list-virtual.php?domain=$fDomain");
          exit(0);

@@ -4,7 +4,7 @@ if(!defined('POSTFIXADMIN')) {
 }
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
-# @version $Id: upgrade.php 969 2011-02-19 20:10:22Z christian_boltz $ 
+# @version $Id: upgrade.php 1521 2013-09-12 20:07:41Z christian_boltz $ 
 
 # Note: run with upgrade.php?debug=1 to see all SQL error messages
 
@@ -107,7 +107,7 @@ _do_upgrade($version);
 
 function _do_upgrade($current_version) {
     global $CONF;
-    # $target_version = preg_replace('/[^0-9]/', '', '$Revision: 969 $');
+    # $target_version = preg_replace('/[^0-9]/', '', '$Revision: 1521 $');
     $target_version = 740; # hardcoded target version for 2.3 branch - increase (by one) if database changes in the branch are necessary
 
     if ($current_version >= $target_version) {
@@ -815,7 +815,7 @@ function upgrade_318_mysql() {
     db_query_parsed( "
         CREATE TABLE {IF_NOT_EXISTS} $table_vacation_notification (
             on_vacation varchar(255) {LATIN1} NOT NULL,
-            notified varchar(255) NOT NULL,
+            notified    varchar(255) {LATIN1} NOT NULL,
             notified_at timestamp NOT NULL default CURRENT_TIMESTAMP,
             PRIMARY KEY on_vacation (`on_vacation`, `notified`),
         CONSTRAINT `vacation_notification_pkey` 
@@ -827,7 +827,7 @@ function upgrade_318_mysql() {
 
     # in case someone has manually created the table with utf8 fields before:
     $all_sql = explode("\n", trim("
-        ALTER TABLE `$table_vacation_notification` CHANGE `notified`    `notified`    VARCHAR( 255 ) NOT NULL
+        ALTER TABLE `$table_vacation_notification` CHANGE `notified`    `notified`    VARCHAR( 255 ) {LATIN1} NOT NULL
         ALTER TABLE `$table_vacation_notification` DEFAULT CHARACTER SET utf8
     "));
     # Possible errors that can be ignored:

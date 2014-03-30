@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #
 # Virtual Vacation 4.0
-# $Revision: 1074 $
+# $Revision: 1616 $
 # Originally by Mischa Peters <mischa at high5 dot net>
 #
 # Copyright (c) 2002 - 2005 High5!
@@ -130,12 +130,17 @@ our $smtp_server_port = 25;
 
 # SMTP authentication protocol used for sending.
 # Can be 'PLAIN', 'LOGIN', 'CRAM-MD5' or 'NTLM'
+# see "perldoc Mail::Sender" (search for "auth") for more options and details
 # Leave it blank if you don't use authentification
 our $smtp_auth = undef;
 # username used to login to the server
 our $smtp_authid = 'someuser';
 # password used to login to the server
 our $smtp_authpwd = 'somepass';
+
+# use TLS for the SMTP connection?
+# while in general this would be a good idea, TLS with Mail::Sender 0.8.22 is buggy - https://rt.cpan.org/Public/Bug/Display.html?id=85438
+our $smtp_tls_allowed = 0;
 
 # Set to 1 to enable logging to syslog.
 our $syslog = 0;
@@ -438,6 +443,7 @@ sub send_vacation_email {
             'auth' => $smtp_auth,
             'authid' => $smtp_authid,
             'authpwd' => $smtp_authpwd,
+            'tls_allowed' => $smtp_tls_allowed,
             'skip_bad_recipients' => 'true',
             'encoding' => 'Base64',
             'ctype' => 'text/plain; charset=UTF-8',
@@ -445,9 +451,8 @@ sub send_vacation_email {
             'headers' => 'X-Loop: Postfix Admin Virtual Vacation',
         );
         my %mail;
-        # I believe Mail::Sender qp encodes the subject, so we no longer need to.
         %mail = (
-            'subject' => $subject,
+            'subject' => encode_mimewords($subject, 'Charset', 'UTF-8'),
             'from' => $from,
             'to' => $to,
             'msg' => encode_base64($body)

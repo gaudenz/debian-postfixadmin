@@ -12,7 +12,7 @@
  * File: create-mailbox.php
  * Responsible for allowing for the creation of mail boxes
  *
- * @version $Id: create-mailbox.php 828 2010-05-17 22:56:23Z christian_boltz $
+ * @version $Id: create-mailbox.php 1622 2014-01-12 17:39:58Z christian_boltz $
  * @license GNU GPL v2 or later.
  *
  * Template Variables:
