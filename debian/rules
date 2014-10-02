@@ -27,6 +27,7 @@ install: build
 	dh_prep
 	dh_installdirs
 	dh_install
+	dh_apache2
 	mv debian/postfixadmin/usr/share/postfixadmin/config.inc.php debian/postfixadmin/etc/postfixadmin/config.inc.php
 	find debian/postfixadmin -name .svn | xargs -r rm -r
 
